@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beaks&Claws</title>
+    <link rel="stylesheet" href="/css/main.css"/>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+</script>
+<body>
+    <main>
+        <h1>Beaks&Claws: First MASSIVE Multiplayer Online Platformer Game</h1>
+        <h3>Controls: A,D - move; W,S - aim; Space - jump; K - shoot; L - grenade; Ctrl - zoom. </h3>
+        <canvas id="game-canvas" width="1280" height="720">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <script type="module" src="/client.js"></script>      
+    </main>
+</body>
+</html>

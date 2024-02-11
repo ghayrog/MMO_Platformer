@@ -1,0 +1,81 @@
+<!DOCTYPE html />
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Beaks&Claws" />
+        <meta name="author" content="Havoksun Games" />
+        <title>Beaks&Claws</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    </head>
+    <body>
+        <header class="p-3 text-bg-dark">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                  Beaks&Claws
+                </a>
+        
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                  <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                  <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                  <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                  <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                  <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                </ul>
+        
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                  <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+                </form>
+        
+                <div class="text-end">
+                  <button type="button" class="btn btn-outline-light me-2">Login</button>
+                  <button type="button" class="btn btn-warning">Sign-up</button>
+                </div>
+              </div>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-6">
+                <h3>Game</h3>
+                <canvas id="game-canvas">
+                    Your browser does not support the HTML5 canvas tag.
+                </canvas>        
+                <h3>Message form</h3>
+                <form id="messForm">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter name" />
+                    <br/>
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" class="form-control" placeholder="Enter message"></textarea>
+                    <br/>
+                    <input type="submit" value="Send" class="btn btn-danger" />
+                </form>
+            </div>
+            <div class="col-6">
+                <h3>Chat console</h3>
+                <div id="allMess"></div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io.connect();
+            const $form = $("#messForm");
+            const $name = $("#name");              
+            const $textarea = $("#message");
+            const $all_messages = $("#allMess");
+
+            $form.submit((event)=>{
+                event.preventDefault();
+                socket.emit('send mess', {name: $name.val(), msg: $textarea.val()});
+                $textarea.val('');
+            });
+
+            socket.on('add mess', function(data){
+                $all_messages.append("<div><b>"+data.name+"</b>: "+data.msg+"</div>");
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    background-color: white;
+}
+
+#game-canvas
+{
+    width: 1280px;
+    background-color: rgb(25, 36, 51);
+}
